@@ -512,10 +512,16 @@ class NewPDB(PDBfile):
         print("z:", ' %.3f'%z_box_low, ";", '%.3f'%z_box_up,'\n')
 
         # hydration
+        #x_box = (abs(x_box_left)/10 + abs(x_box_right)/10) * 1.02
+        #y_box = (abs(y_box_left)/10 + abs(y_box_right)/10) * 1.02
+        #z_hydr =(420 / x_box / y_box ) * 2.5 #  TODO prepocist na volume
+        #z_box = abs(z_box_low)/10 + abs(z_box_up)/10 + 2 * z_hydr
+
+        # hydration
         x_box = (abs(x_box_left)/10 + abs(x_box_right)/10) * 1.02
         y_box = (abs(y_box_left)/10 + abs(y_box_right)/10) * 1.02
-        z_hydr =(1000 / x_box / y_box / 10) * 2.5 #  TODO prepocist na volume
-        z_box = abs(z_box_low)/10 + abs(z_box_up)/10 + 2 * z_hydr
+        z_hydr = 420 / x_box / y_box #  volume of 420 nm2 for hydration of 3356 water molecules in one leaflet should be sufficient
+        z_box = abs(z_box_low)/10*1.01 + abs(z_box_up)/10*1.01 + 2 * z_hydr
 
         print("Input for cell creation and system hydration:")
         print("Box vector:", '%.3f'%(x_box),";", '%.3f'%(y_box), ";", '%.3f'%(z_box), "[nm]")
